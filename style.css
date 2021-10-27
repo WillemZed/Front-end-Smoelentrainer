@@ -1,0 +1,14 @@
+.hidden {
+    display: none;
+}
+body {
+    text-align: center;
+}
+.allJojos {
+    width: 50%;
+}
+
+.jojo {
+    width: 20%;
+}
+
