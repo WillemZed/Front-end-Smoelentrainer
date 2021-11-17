@@ -9,7 +9,7 @@ const imageContainer = document.getElementById("imageContainer");
 const resultContainer = document.getElementById("resultContainer");
 const correctPoints = document.getElementById("goeiePunten");
 const wrongPoints = document.getElementById("foutePunten");
-
+const matchPogingen = document.getElementById("matchPogingen")
 const button0 = document.getElementById("button0");
 const button1 = document.getElementById("button1");
 const button2 = document.getElementById("button2");
@@ -19,17 +19,18 @@ const img0 = document.getElementById("img0");
 const img1 = document.getElementById("img1");
 const img2 = document.getElementById("img2");
 
-var tries = 0;
-var correct = [];
-var wrong = [];
-var session = 3;
-var round = []
 var dataId;
 var savedOptions = []
 
 var tries = 0;
 var correctAnswers = 0
 var wrongAnswers = 0
+var correct = [];
+var wrong = [];
+var session = 3;
+
+var rounds = 0;
+var matchAttemps = []
 
 var savedButton = []
 var savedImage = []
@@ -49,7 +50,7 @@ function hide(element) {
 }
 
 hide(container);
-
+hide(resultContainer);
 
 
 
@@ -57,6 +58,7 @@ startButton.onclick = function() {
     hide(allJojos);
     hide(startTitle);
     hide(startButton);
+    hide(resultContainer);
     show(container);
     insertImage();
     insertName();
@@ -211,15 +213,24 @@ function comparison()
     if (tries != session) {
         insertImage()
         insertName()
+        console.log("tries = " + tries +" and session = " + session)
+        console.log(correctAnswers);
+        console.log(wrongAnswers)
     } else {
         correct.push(correctAnswers);;
-        wrong.push(wrongAnswers)
-        hide(container)
+        wrong.push(wrongAnswers);
+        rounds++
+        matchAttemps.push(rounds);
+        hide(container);
+        show(startButton);
+        startButton.value = "Herstart de trainer";
         show(resultContainer);
         showResults();
-        
+        console.log(correctAnswers);
+        console.log(wrongAnswers)
         correctAnswers = 0;
         wrongAnswers = 0;
+        tries = 0;
     }
 }
 
@@ -246,8 +257,6 @@ function wrongFunction() {
     savedButton.splice(0, 1)
     tries++
     wrongAnswers++
-    //wrong.push(wrongAnswers);
-    console.log("wronganswers = " + wrongAnswers)
 }
 function colorBtn(){
     const id = document.querySelector("button[data-id='" + dataId + "']");
@@ -287,6 +296,7 @@ function colorImg() {
 }
 
 function showResults() {
-    correctPoints.innerHTML = "aantal goeie punten: " + correct;
-    wrongPoints.innerHTML = "aantal verkeerde punten: " + wrong;
+    correctPoints.innerHTML = "aantal goeie punten: " + correct[correct.length - 1]
+    wrongPoints.innerHTML = "aantal verkeerde punten: " + wrong[wrong.length - 1];
+    matchPogingen.innerHTML = "aantal matchpogingen: " + matchAttemps[matchAttemps.length - 1];
 }
