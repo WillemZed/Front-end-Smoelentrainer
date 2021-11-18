@@ -9,7 +9,7 @@ const imageContainer = document.getElementById("imageContainer");
 const resultContainer = document.getElementById("resultContainer");
 const correctPoints = document.getElementById("goeiePunten");
 const wrongPoints = document.getElementById("foutePunten");
-
+const matchPogingen = document.getElementById("matchPogingen")
 const button0 = document.getElementById("button0");
 const button1 = document.getElementById("button1");
 const button2 = document.getElementById("button2");
@@ -19,17 +19,21 @@ const img0 = document.getElementById("img0");
 const img1 = document.getElementById("img1");
 const img2 = document.getElementById("img2");
 
-var tries = 0;
-var correct = [];
-var wrong = [];
-var session = 3;
-var round = []
+const countdownBar = document.getElementById("countdownBar");
+const timeLeft = document.getElementById("timeLeft");
+var timerTime = 10;
 var dataId;
 var savedOptions = []
 
 var tries = 0;
 var correctAnswers = 0
 var wrongAnswers = 0
+var correct = [];
+var wrong = [];
+var session = 3;
+
+var rounds = 0;
+var matchAttemps = []
 
 var savedButton = []
 var savedImage = []
@@ -49,20 +53,36 @@ function hide(element) {
 }
 
 hide(container);
-
-
+hide(resultContainer);
+hide(countdownBar)
 
 
 startButton.onclick = function() {
+    correctAnswers = 0;
+        wrongAnswers = 0;
+        tries = 0;
+    hide(resultContainer)
     hide(allJojos);
     hide(startTitle);
     hide(startButton);
     show(container);
     insertImage();
     insertName();
+    initBarCount()
 }
 
 skipBtn.onclick = function() {
+    const btn = document.querySelector(".rememberBtnCol");
+    if(btn) {
+        btn.classList.remove("rememberBtnCol")
+    }
+    const img = document.querySelector(".rememberImgCol");
+
+    if(img) {
+        img.classList.remove("rememberImgCol")
+    }
+    savedButton.splice(0, 1)
+    savedImage.splice(0, 1)
     insertImage()
     insertName()
 }
@@ -123,6 +143,7 @@ function insertName() {
         "Josuke higashikata(2)"
     ]
     var numsArray = [0, 1, 2, 3, 4, 5, 6, 7];
+
     for(var i = 0; i <= 2; i++) {
         const variableB = [button0, button1, button2];
 
@@ -211,19 +232,26 @@ function comparison()
     if (tries != session) {
         insertImage()
         insertName()
+        console.log("tries = " + tries +" and session = " + session)
+        console.log(correctAnswers);
+        console.log(wrongAnswers)
     } else {
         correct.push(correctAnswers);;
-        wrong.push(wrongAnswers)
-        hide(container)
+        wrong.push(wrongAnswers);
+        rounds++
+        matchAttemps.push(rounds);
+        hide(container);
+        show(startButton);
+        startButton.value = "Herstart de trainer";
         show(resultContainer);
         showResults();
-        
-        correctAnswers = 0;
-        wrongAnswers = 0;
+        console.log(correctAnswers);
+        console.log(wrongAnswers)
     }
 }
 
 function correctFunction() {
+    alert("goed :D")
     const btn = document.querySelector(".rememberBtnCol");
     btn.classList.remove("rememberBtnCol")
 
@@ -236,6 +264,7 @@ function correctFunction() {
 }
 
 function wrongFunction() {
+    alert("WRONG")
     const btn = document.querySelector(".rememberBtnCol");
     btn.classList.remove("rememberBtnCol")
 
@@ -246,8 +275,6 @@ function wrongFunction() {
     savedButton.splice(0, 1)
     tries++
     wrongAnswers++
-    //wrong.push(wrongAnswers);
-    console.log("wronganswers = " + wrongAnswers)
 }
 function colorBtn(){
     const id = document.querySelector("button[data-id='" + dataId + "']");
@@ -286,7 +313,46 @@ function colorImg() {
     }
 }
 
+function initBarCount() {
+    show(countdownBar)
+    var startTimer = setInterval(barCount, timerTime)
+    console.log(startTimer);
+    function barCount() {
+        
+        if(timeLeft.clientWidth == countdownBar.clientWidth + "px") {
+            countdownBar.width = timeLeft.clientWidth + "px";
+        }
+        if(timeLeft.clientWidth < countdownBar.clientWidth) {
+            timeLeft.style.width = timeLeft.clientWidth + 1 + "px";
+        } else {
+            timeLeft.style.width = 0;
+            countdownBar.style.width = 500 + "px";
+            if(timeLeft.style.width == countdownBar.style.width + "px") {
+                console.log(timeLeft.style.width)
+                console.log(countdownBar.style.width)
+                console.log("width is hetzeflde")
+            }
+            clearInterval(startTimer)
+            skipToEnd();
+            hide(countdownBar)
+        }
+    }
+}
+
+function skipToEnd() {
+    correct.push(correctAnswers);;
+    wrong.push(wrongAnswers);
+    // rounds++
+    // matchAttemps.push(rounds);
+    hide(container);
+    show(startButton);
+    startButton.value = "Herstart de trainer";
+    show(resultContainer);
+    showResults();
+}
+
 function showResults() {
-    correctPoints.innerHTML = "aantal goeie punten: " + correct;
-    wrongPoints.innerHTML = "aantal verkeerde punten: " + wrong;
+    correctPoints.innerHTML = "aantal goeie punten: " + correct[correct.length - 1]
+    wrongPoints.innerHTML = "aantal verkeerde punten: " + wrong[wrong.length - 1];
+    matchPogingen.innerHTML = "aantal matchpogingen: " + matchAttemps[matchAttemps.length - 1];
 }
