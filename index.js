@@ -19,12 +19,9 @@ const img0 = document.getElementById("img0");
 const img1 = document.getElementById("img1");
 const img2 = document.getElementById("img2");
 
-<<<<<<< HEAD
 const countdownBar = document.getElementById("countdownBar");
 const timeLeft = document.getElementById("timeLeft");
 var timerTime = 10;
-=======
->>>>>>> main
 var dataId;
 var savedOptions = []
 
@@ -57,11 +54,7 @@ function hide(element) {
 
 hide(container);
 hide(resultContainer);
-<<<<<<< HEAD
 hide(countdownBar)
-=======
-
->>>>>>> main
 
 
 startButton.onclick = function() {
@@ -72,7 +65,6 @@ startButton.onclick = function() {
     hide(allJojos);
     hide(startTitle);
     hide(startButton);
-    hide(resultContainer);
     show(container);
     insertImage();
     insertName();
@@ -255,12 +247,6 @@ function comparison()
         showResults();
         console.log(correctAnswers);
         console.log(wrongAnswers)
-<<<<<<< HEAD
-=======
-        correctAnswers = 0;
-        wrongAnswers = 0;
-        tries = 0;
->>>>>>> main
     }
 }
 
