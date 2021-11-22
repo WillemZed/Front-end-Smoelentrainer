@@ -11,6 +11,16 @@
     <script src="nameImg.js"></script>
 </head>
 <body>
+    <button id="gear">&#9881</button>
+    <div id="settings" class="hidden">
+        Choose your background color:
+        <select name="backgroundColor" id="backgroundColor" onchange="changeBackgroundColor()">
+            <option value="red" id="red">Red</option>
+            <option value="green" id="green">Green</option>
+            <option value="blue" id="blue">Blue</option>
+        </select>
+        
+    </div>
     <div id="container">
         <div id="imageContainer" class="">
             <img id="img0" alt="">

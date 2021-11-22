@@ -3,6 +3,9 @@ const startTitle = document.getElementById("startTitle");
 const startButton = document.getElementById("startButton");
 const container = document.getElementById("container");
 
+const gear = document.getElementById("gear")
+const settings = document.getElementById("settings")
+
 const buttonContainer = document.getElementById("buttonContainer");
 const imageContainer = document.getElementById("imageContainer");
 
@@ -21,6 +24,8 @@ const img2 = document.getElementById("img2");
 
 const countdownBar = document.getElementById("countdownBar");
 const timeLeft = document.getElementById("timeLeft");
+
+
 var timerTime = 10;
 var dataId;
 var savedOptions = []
@@ -37,6 +42,58 @@ var matchAttemps = []
 
 var savedButton = []
 var savedImage = []
+
+window.onload = localBackgroundSetting();
+
+function localBackgroundSetting() {
+    const savedColor = localStorage.getItem("color")
+    var red = document.getElementById("red")
+    var green = document.getElementById("green")
+    var blue = document.getElementById("blue")
+
+    console.log(savedColor)
+    if(savedColor){
+        if(savedColor == "red") {
+            document.body.style.backgroundColor = "red"
+            red.selected = true;
+        }
+        if(savedColor == "green") {
+            document.body.style.backgroundColor = "green"
+            green.selected = true;
+        }
+        if(savedColor == "blue") {
+            document.body.style.backgroundColor = "blue"
+            blue.selected = true;
+        }
+    }
+}
+
+function changeBackgroundColor() {
+    var backgroundColorSettings = document.getElementById("backgroundColor").value
+
+    localStorage.setItem("color", backgroundColorSettings)
+
+    const savedColor = localStorage.getItem("color")
+
+    if(backgroundColorSettings == savedColor) {
+        backgroundColorSettings.selected = "true"
+    }
+
+
+    if(savedColor){
+        if(savedColor == "red") {
+            document.body.style.backgroundColor = "red"
+        }
+        if(savedColor == "green") {
+            document.body.style.backgroundColor = "green"
+        }
+        if(savedColor == "blue") {
+            document.body.style.backgroundColor = "blue"
+        }
+    }
+    
+    
+}
 
 
 
@@ -56,11 +113,20 @@ hide(container);
 hide(resultContainer);
 hide(countdownBar)
 
+gear.onclick = function() {
+    if(settings.classList == "hidden") {
+        show(settings)
+    } else {
+        hide(settings)
+    }
+}
 
 startButton.onclick = function() {
     correctAnswers = 0;
-        wrongAnswers = 0;
-        tries = 0;
+    wrongAnswers = 0;
+    tries = 0;
+    hide(gear)
+    hide(settings)
     hide(resultContainer)
     hide(allJojos);
     hide(startTitle);
@@ -240,7 +306,11 @@ function comparison()
         wrong.push(wrongAnswers);
         rounds++
         matchAttemps.push(rounds);
+        if(matchAttemps == undefined) {
+            matchAttemps.push(0)
+        }
         hide(container);
+        hide(countdownBar)
         show(startButton);
         startButton.value = "Herstart de trainer";
         show(resultContainer);
@@ -340,6 +410,8 @@ function initBarCount() {
 }
 
 function skipToEnd() {
+    rounds++
+    matchAttemps.push(rounds);
     correct.push(correctAnswers);;
     wrong.push(wrongAnswers);
     // rounds++
