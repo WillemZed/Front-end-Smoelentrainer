@@ -1,14 +1,18 @@
 .hidden {
     display: none;
 }
+
 body {
     text-align: center;
 }
+
 .allJojos {
     width: 50%;
 }
 
-#img0, #img1, #img2 {
+#img0,
+#img1,
+#img2 {
     width: 20%;
 }
 
@@ -19,4 +23,28 @@ body {
 
 .rememberImgCol {
     border: 5px solid #555;
+}
+
+#countdownBar {
+    text-align: center;
+    position: fixed;
+    margin-top: 200px;
+    margin-left: 70px;
+    left: 100px;
+    width: 500px;
+    height: 10px;
+    top: 100px;
+    border: 2px black solid;
+    background: linear-gradient(to right, red, yellow, green);
+}
+
+#timeLeft {
+    text-align: center;
+    float: right;
+    background: lightgrey;
+    height: 6px;
+}
+
+#gear {
+    font-size: 50px;
 }

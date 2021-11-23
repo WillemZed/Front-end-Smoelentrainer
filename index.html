@@ -11,6 +11,16 @@
     <script src="nameImg.js"></script>
 </head>
 <body>
+    <button id="gear">&#9881</button>
+    <div id="settings" class="hidden">
+        Choose your background color:
+        <select name="backgroundColor" id="backgroundColor" onchange="changeBackgroundColor()">
+            <option value="red" id="red">Red</option>
+            <option value="green" id="green">Green</option>
+            <option value="blue" id="blue">Blue</option>
+        </select>
+        
+    </div>
     <div id="container">
         <div id="imageContainer" class="">
             <img id="img0" alt="">
@@ -27,6 +37,14 @@
         </div>
     </div>
 
+    <div id=countdownBar>
+        <div id=timeLeft>
+
+        </div>
+    </div>
+
+    <button id="showHistory">Show History</button>
+
     <div id="resultContainer">
         <div id="goeiePunten">
 
@@ -41,10 +59,15 @@
         </div>
 
     </div>
+
     <h1 id="startTitle">Smoelentrainer</h1>
     <img id="allJojos" class="allJojos" src="img/Lists.jpeg" alt="jojoList">
     <br>
     <input id="startButton" type="button" value="Start">
+
+    <div id="history">
+        
+    </div>
     <script src="index.js"></script>
 </body>
 </html>
