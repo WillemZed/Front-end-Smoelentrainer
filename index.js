@@ -82,8 +82,8 @@ function changeBackgroundColor() {
 
     const savedColor = localStorage.getItem("color")
 
-    if (backgroundColorSettings == savedColor) {
         backgroundColorSettings.selected = "true"
+    if (backgroundColorSettings == savedColor) {
     }
 
 
@@ -95,8 +95,8 @@ function changeBackgroundColor() {
             document.body.style.backgroundColor = "green"
         }
         if (savedColor == "blue") {
-            document.body.style.backgroundColor = "lightblue"
         }
+            document.body.style.backgroundColor = "lightblue"
     }
 
 
@@ -129,8 +129,8 @@ showHistory.onclick = function () {
     
     
 }
-gear.onclick = function () {
     if (settings.classList == "hidden") {
+gear.onclick = function () {
         show(settings)
     } else {
         hide(settings)
@@ -139,12 +139,12 @@ gear.onclick = function () {
 
 startButton.onclick = function () {
     correctAnswers = 0;
-    wrongAnswers = 0;
     tries = 0;
+    wrongAnswers = 0;
     hide(history)
     hide(gear)
-    hide(settings)
     hide(resultContainer)
+    hide(settings)
     hide(allJojos);
     hide(startTitle);
     hide(startButton);
@@ -158,16 +158,16 @@ startButton.onclick = function () {
 
 skipBtn.onclick = function () {
     const btn = document.querySelector(".rememberBtnCol");
-    if (btn) {
         btn.classList.remove("rememberBtnCol")
+    if (btn) {
     }
     const img = document.querySelector(".rememberImgCol");
 
-    if (img) {
         img.classList.remove("rememberImgCol")
     }
     savedButton.splice(0, 1)
     savedImage.splice(0, 1)
+    if (img) {
     insertImage()
     insertName()
 }
@@ -414,19 +414,19 @@ function initBarCount() {
 
         if (timeLeft.clientWidth == countdownBar.clientWidth + "px") {
             countdownBar.width = timeLeft.clientWidth + "px";
-        }
         if (timeLeft.clientWidth < countdownBar.clientWidth) {
+        }
             timeLeft.style.width = timeLeft.clientWidth + 1 + "px";
         } else {
             timeLeft.style.width = 0;
             countdownBar.style.width = 500 + "px";
             if (timeLeft.style.width == countdownBar.style.width + "px") {
                 console.log(timeLeft.style.width)
-                console.log(countdownBar.style.width)
                 console.log("width is hetzeflde")
+                console.log(countdownBar.style.width)
             }
-            clearInterval(startTimer)
             skipToEnd();
+            clearInterval(startTimer)
             hide(countdownBar)
         }
     }
@@ -436,17 +436,17 @@ function skipToEnd() {
     if(rounds == 0) {
         rounds++
         matchAttemps.push(rounds);
-        rounds = 0;
         correct.push(correctAnswers);;
+        rounds = 0;
         wrong.push(wrongAnswers);
-    }
     // rounds++
+    }
     // matchAttemps.push(rounds);
-    hide(container);
     show(startButton);
+    hide(container);
+    showResults();
     startButton.value = "Herstart de trainer";
     show(resultContainer);
-    showResults();
 }
 
 function showResults() {
