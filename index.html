@@ -19,7 +19,14 @@
             <option value="green" id="green">Green</option>
             <option value="blue" id="blue">Blue</option>
         </select>
-        
+        <br>
+        hoeveel seconde wil je voor de training?
+        <input type="text" id="time">
+        <input type="submit" value="kies" id="secondsSetting">
+        <br>
+        Hoeveel keer wil je dit spelen?
+        <input type="text" id="totalObjects">
+        <input type="submit" value="Kies" id="objectsSetting">
     </div>
     <div id="container">
         <div id="imageContainer" class="">
@@ -46,6 +53,8 @@
     <button id="showHistory">Show History</button>
 
     <div id="resultContainer">
+
+
         <div id="goeiePunten">
 
         </div>
@@ -59,11 +68,23 @@
         </div>
 
     </div>
-
     <h1 id="startTitle">Smoelentrainer</h1>
     <img id="allJojos" class="allJojos" src="img/Lists.jpeg" alt="jojoList">
     <br>
     <input id="startButton" type="button" value="Start">
+
+    <div id="sortDiv" class="hidden">
+        <select name="sortColumn" id="sorteerColumn">
+            <option value="Time">Time</option>
+            <option value="Score">Score</option>
+        </select>
+        
+        <select name="sortOrder" id="sorteerOrder">
+            <option value="Ascending">Ascending</option>
+            <option value="Descending">Descending</option>
+        </select>
+        <input type="submit" value="Sort" id="sort">
+    </div>
 
     <div id="history">
         

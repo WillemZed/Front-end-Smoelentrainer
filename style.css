@@ -1,18 +1,14 @@
 .hidden {
     display: none;
 }
-
 body {
     text-align: center;
 }
-
 .allJojos {
     width: 50%;
 }
 
-#img0,
-#img1,
-#img2 {
+#img0, #img1, #img2 {
     width: 20%;
 }
 
@@ -47,4 +43,8 @@ body {
 
 #gear {
     font-size: 50px;
+}
+
+#settings {
+    background-color: white;
 }
