@@ -55,6 +55,7 @@ var savedImage = [];
 
 var totalObj = 3;
 
+//makes objects with scores and results
 class RoundScore {
 	matchAttempts;
 	correct;
@@ -96,15 +97,18 @@ hide(resultContainer);
 hide(countdownBar);
 hide(showHistory);
 
+//clicking on "sort" button executes function "sort"
 sortSubmit.onclick = function () {
 	sort();
 };
 
+//clicking on this button shows the history of the scores
 showHistory.onclick = function () {
 	show(history);
 	showTheHistoryAscending();
 };
 
+//declares how many seconds 1 session takes, and saves it locally
 secondsSetting.onclick = function () {
 	var timeChange = time.value;
 	timeChange = timeChange * 2;
@@ -114,12 +118,14 @@ secondsSetting.onclick = function () {
 	console.log(timerTime);
 };
 
+//changes the total objects to the user input, standard total = 3
 objectsSetting.onclick = function () {
 	score.splice(0, totalObj);
 	totalObj = totalObjects.value;
 	score = makeArray(totalObj - 1);
 };
 
+//shows/hides the settings
 gear.onclick = function () {
 	if (settings.classList == "hidden") {
 		show(settings);
@@ -128,6 +134,7 @@ gear.onclick = function () {
 	}
 };
 
+//starts the application
 startButton.onclick = function () {
 	correctAnswers = 0;
 	wrongAnswers = 0;
@@ -147,6 +154,7 @@ startButton.onclick = function () {
 	deleteHistory();
 };
 
+//removes any buttons saved and loads new images and buttons
 skipBtn.onclick = function () {
 	const btn = document.querySelector(".rememberBtnCol");
 	if (btn) {
@@ -265,9 +273,11 @@ function buttonOnclick() {
 	}
 }
 
+//create new variables for different checks in comparison
 var matchRonde = 0;
 var checkIfComparisonRunned = 0;
 
+//compares the image and button pressed and executes another function (nextRound and skipToEnd) when every object has been set
 function comparison() {
 	if (savedImage[0] == savedButton[0]) {
 		correctFunction();
@@ -300,6 +310,7 @@ function comparison() {
 	}
 }
 
+//executes when the image and button matches
 function correctFunction() {
 	alert("goed :D");
 	const btn = document.querySelector(".rememberBtnCol");
@@ -313,6 +324,7 @@ function correctFunction() {
 	correctAnswers++;
 }
 
+//executes when the image and button don't match
 function wrongFunction() {
 	alert("WRONG");
 	const btn = document.querySelector(".rememberBtnCol");
@@ -326,6 +338,8 @@ function wrongFunction() {
 	tries++;
 	wrongAnswers++;
 }
+
+//colors the button when pressed and decolors the button previously presed
 function colorBtn() {
 	const id = document.querySelector("button[data-id='" + dataId + "']");
 	if (id.classList.contains("rememberBtnCol")) {
@@ -344,6 +358,7 @@ function colorBtn() {
 	}
 }
 
+//colors the image when pressed and decolors the image previously presed
 function colorImg() {
 	const id = document.querySelector("img[data-id='" + dataId + "']");
 	if (id.classList.contains("rememberImgCol")) {
@@ -362,6 +377,7 @@ function colorImg() {
 	}
 }
 
+//is a timebar that executes lines of code when the user has ran out of time
 function initBarCount() {
 	show(countdownBar);
 	var startTimer = setInterval(barCount, timerTime);
@@ -396,6 +412,7 @@ function initBarCount() {
 	}
 }
 
+//shows results and a button to go to the next round
 function nextRound() {
 	hide(countdownBar);
 	hide(container);
@@ -405,6 +422,7 @@ function nextRound() {
 	startButton.value = "Go to next round";
 }
 
+//shows results and settings and can sort the history when the user has finished current session
 function skipToEnd() {
 	hide(countdownBar);
 	hide(container);
@@ -421,6 +439,7 @@ function skipToEnd() {
 	showResults();
 }
 
+//saves the backgroundcolor settings locally
 function localBackgroundSetting() {
 	const savedColor = localStorage.getItem("color");
 	var red = document.getElementById("red");
@@ -444,6 +463,7 @@ function localBackgroundSetting() {
 	}
 }
 
+//changes backgroundcolor when color has been set
 function changeBackgroundColor() {
 	var backgroundColorSettings =
 		document.getElementById("backgroundColor").value;
@@ -469,6 +489,7 @@ function changeBackgroundColor() {
 	}
 }
 
+//shows results from current round
 function showResults() {
 	console.log(matchRonde);
 	correctPoints.innerHTML =
@@ -479,9 +500,12 @@ function showResults() {
 		"aantal matchpogingen: " + score[matchRonde].matchAttempts;
 }
 
+//shows history in ascending order
 function showTheHistoryAscending() {
 	deleteHistory();
-	for (var i = 0; i <= score.length - 1; i++) {
+	var limitScore = Math.min(score.length, 10);
+	console.log(limitScore);
+	for (var i = 0; i <= limitScore - 1; i++) {
 		if (score[matchRonde].matchAttempts > 0) {
 			history.classList.add("container");
 			console.log(`loop = ${i}`);
@@ -511,9 +535,11 @@ function showTheHistoryAscending() {
 	}
 }
 
+//shows history in descending order
 function showTheHistoryDescending() {
 	deleteHistory();
-	for (var i = 0; i <= score.length - 1; i++) {
+	var limitScore = Math.min(score.length, 10);
+	for (var i = 0; i <= limitScore - 1; i++) {
 		console.log(i);
 		if (score[matchRonde].matchAttempts > 0) {
 			history.classList.add("container");
@@ -544,6 +570,7 @@ function showTheHistoryDescending() {
 	}
 }
 
+//sorts the score array to display in the history
 function sort() {
 	const sorteerColumn = document.getElementById("sorteerColumn").value;
 	const sorteerOrder = document.getElementById("sorteerOrder").value;
@@ -583,18 +610,9 @@ function sort() {
 	}
 }
 
+//delete history list
 function deleteHistory() {
 	while (history.firstChild) {
 		history.removeChild(history.firstChild);
 	}
-}
-
-function compare(a, b) {
-	if (a.dateTime < b.dateTime) {
-		return -1;
-	}
-	if (a.dateTime > b.dateTime) {
-		return 1;
-	}
-	return 0;
 }
